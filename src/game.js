@@ -47,10 +47,11 @@ function startGame() {
     game.style.display = 'block';
     isPlaying = true;
 
-    playBtn.onclick = () => {
+    playBtn.ontouchstart = (e) => {
+        e.preventDefault();
         if (!isPlaying) return;
 
-        fall.style.transform = " scale(1.4)";
+        fall.style.transform = " scale(1.1)";
         setTimeout(() => {
             fall.style.transform = " scale(1)";
         }, 200);
@@ -97,10 +98,40 @@ function endGame() {
 
 const resultBtn = document.querySelector('#result-btn');
 
-resultBtn.onclick = () => {
+resultBtn.ontouchstart = (e) => {
+    e.preventDefault();
     if (result.dataset.status === "pass") {
         window.location.href = "pass.html";
     } else {
         window.location.href = "fail.html";
+    }
+};
+
+
+const background1 = document.querySelector("#background1");
+const background2 = document.querySelector("#background2");
+const background3 = document.querySelector("#background3");
+const background4 = document.querySelector("#background4");
+
+
+
+let touchCount = 0;
+let fadeStep = 0;
+
+document.body.ontouchstart = (e) => {
+    touchCount++;
+
+    if (touchCount % 20 === 0) {
+        fadeStep++;
+        if (fadeStep === 1) {
+            background1.style.opacity = 0;
+            summer1.style.opacity = 0;
+            summer2.style.opacity = 1;
+        } else if (fadeStep === 2) {
+            background2.style.opacity = 0;
+        } else if (fadeStep === 3) {
+            background3.style.opacity = 0;
+        }
+        // background4는 마지막이라 남김
     }
 };
